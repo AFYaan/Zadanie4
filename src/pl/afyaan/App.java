@@ -21,10 +21,9 @@ public class App {
 
         buildResult();
 
-        System.out.println("Instrukcje:");
-        instructions.forEach(System.out::println);
+        System.out.println("Długość napisu: " + sb.length());
 
-        System.out.println("\nWynik:\n" + sb.toString());
+
     }
 
     private void buildResult(){
@@ -45,7 +44,8 @@ public class App {
                     break;
                 case PRZESUN:
                     int index = getCharIndex(sb, String.valueOf(value).charAt(0));
-                    sb.replace(index , index + 1, String.valueOf(getNextChar(sb.charAt(index))));
+                    if(index != -1)
+                        sb.replace(index , index + 1, String.valueOf(getNextChar(sb.charAt(index))));
                     break;
             }
         });
@@ -57,13 +57,19 @@ public class App {
                 return i;
             }
         }
-        return 0;
+        return -1;
     }
 
     private char getNextChar(char value){
-        if(value == 'Z') return 'A';
-
-        return (char)(value + 1);
+        if(value == 'Z') {
+            System.out.println("Test z: " + value);
+            return 'A';
+        }
+        else {
+            System.out.println("Test: " + value);
+            return (char)(value + 1);
+        }
+       // return (char)(value + 1);
     }
 
     private void setInstructions(String instrPath) throws IOException {
