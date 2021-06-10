@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * @project Zadanie4
  */
 public class App {
-    private List<String> instructions;
+    private List<Instruction> instructions;
     private StringBuilder sb;
 
     public App(String instrPath) throws IOException {
@@ -22,14 +23,17 @@ public class App {
         buildResult();
 
         System.out.println("Długość napisu: " + sb.length());
+        System.out.println(sb.toString());
+
+        this.instructions.stream().filter(s -> s.getType() == Type.DOPISZ);
 
 
     }
 
     private void buildResult(){
-        instructions.forEach(s ->{
-            Type type = Type.valueOf(s.split(" ")[0]);
-            Object value = s.split(" ")[1];
+        instructions.forEach(instruction ->{
+            Type type = instruction.getType();
+            Object value = instruction.getValue();
 
             switch (type)
             {
@@ -69,10 +73,16 @@ public class App {
             System.out.println("Test: " + value);
             return (char)(value + 1);
         }
-       // return (char)(value + 1);
     }
 
     private void setInstructions(String instrPath) throws IOException {
-        this.instructions = Files.readAllLines(Paths.get(instrPath), StandardCharsets.UTF_8);
+        this.instructions = new ArrayList<>();
+        List<String> stringInstr = Files.readAllLines(Paths.get(instrPath), StandardCharsets.UTF_8);
+
+
+        for(String s : stringInstr){
+            this.instructions.add(new Instruction(Type.valueOf(s.split(" ")[0]), s.split(" ")[1]));
+        }
+
     }
 }
