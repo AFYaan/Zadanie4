@@ -131,10 +131,8 @@ public class App {
         this.instructions = new ArrayList<>();
         List<String> stringInstr = Files.readAllLines(Paths.get(instrPath), StandardCharsets.UTF_8);
 
-
         for(String s : stringInstr){
             this.instructions.add(new Instruction(Type.valueOf(s.split(" ")[0]), s.split(" ")[1]));
         }
-
     }
 }
