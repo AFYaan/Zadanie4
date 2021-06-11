@@ -58,14 +58,15 @@ public class App {
             map.put(preType, count+1);
         }
 
-        Optional<Map.Entry<Type, Integer>> maxEntry = map.entrySet()
+        map.entrySet()
                 .stream()
-                .max(Map.Entry.comparingByValue());
-
-        System.out.println("\nZadanie 4.2:\n  " +
-                "Najdłuższy ciąg występujących kolejno po sobie instrukcji tego samego rodzaju to:\n" +
-                "Rodzaj instrukcji [" + maxEntry.get().getKey().toString() + "] wystąpiła " + maxEntry.get().getValue()
-                + (maxEntry.get().getValue() == 1 ? " raz" : " razy"));
+                .max(Map.Entry.comparingByValue())
+                .ifPresent(v -> {
+                    System.out.println("\nZadanie 4.2:\n  " +
+                            "Najdłuższy ciąg występujących kolejno po sobie instrukcji tego samego rodzaju to:\n" +
+                            "Rodzaj instrukcji [" + v.getKey().toString() + "] wystąpiła " + v.getValue()
+                            + (v.getValue() == 1 ? " raz" : " razy"));
+                });
     }
 
     private void zad43(){
