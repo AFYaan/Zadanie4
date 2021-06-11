@@ -1,10 +1,5 @@
 package pl.afyaan;
 
-/**
- * @author AFYaan
- * @created 10.06.2021
- * @project Zadanie4
- */
 public class Instruction {
     private Type type;
     private Object value;
